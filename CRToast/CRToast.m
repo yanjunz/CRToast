@@ -227,6 +227,7 @@ NSString *const kCRToastAutorotateKey                       = @"kCRToastAutorota
 
 NSString *const kCRToastIdentifierKey                       = @"kCRToastIdentifierKey";
 NSString *const kCRToastCaptureDefaultWindowKey             = @"kCRToastCaptureDefaultWindowKey";
+NSString *const kCRToastTopOffsetKey                        = @"kCRToastTopOffsetKey";
 
 #pragma mark - Option Defaults
 
@@ -280,6 +281,8 @@ static BOOL                          kCRForceUserInteractionDefault         = NO
 static BOOL                          kCRAutoRotateDefault                   = YES;
 
 static BOOL                          kCRCaptureDefaultWindowDefault         = YES;
+
+static CGFloat                       kCRTopOffsetDefault                    = 0.0;
 
 static NSDictionary *                kCRToastKeyClassMap                    = nil;
 
@@ -352,7 +355,8 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
                                 
                                 kCRToastAutorotateKey                       : NSStringFromClass([@(kCRAutoRotateDefault) class]),
                                 
-                                kCRToastCaptureDefaultWindowKey             : NSStringFromClass([@(kCRCaptureDefaultWindowDefault) class])
+                                kCRToastCaptureDefaultWindowKey             : NSStringFromClass([@(kCRCaptureDefaultWindowDefault) class]),
+                                kCRToastTopOffsetKey                        : NSStringFromClass([@(kCRTopOffsetDefault) class]),
                                 };
     }
 }
@@ -423,6 +427,8 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
     if (defaultOptions[kCRToastAutorotateKey])                      kCRAutoRotateDefault                    = [defaultOptions[kCRToastAutorotateKey] boolValue];
 
     if (defaultOptions[kCRToastCaptureDefaultWindowKey])            kCRCaptureDefaultWindowDefault          = [defaultOptions[kCRToastCaptureDefaultWindowKey] boolValue];
+    
+    if (defaultOptions[kCRToastTopOffsetKey])                       kCRTopOffsetDefault = [defaultOptions[kCRToastTopOffsetKey] floatValue];
 }
 
 #pragma mark - Notification View Helpers
@@ -434,7 +440,7 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
 - (UIView *)privateNotificationView {
     if (!_privateNotificationView) {
         CGSize size = CRNotificationViewSize(self.notificationType, self.preferredHeight);
-        _privateNotificationView = [[CRToastView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        _privateNotificationView = [[CRToastView alloc] initWithFrame:CGRectMake(0, [self topOffset], size.width, size.height)];
         _privateNotificationView.toast = self;
     }
     return _privateNotificationView;
@@ -910,6 +916,11 @@ static CGFloat kCRCollisionTweak = 0.5;
 {
     _confirmation = confirmation;
     [CRToastManager dismissNotification:YES];
+}
+
+- (CGFloat)topOffset
+{
+    return _options[kCRToastTopOffsetKey] ? [_options[kCRToastTopOffsetKey] floatValue] : 0;
 }
 
 @end

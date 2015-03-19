@@ -271,6 +271,7 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
     CGSize notificationSize = CRNotificationViewSize(notification.notificationType, notification.preferredHeight);
     
     CGRect containerFrame = CRGetNotificationContainerFrame(CRGetDeviceOrientation(), notificationSize);
+    containerFrame.origin.y = [notification topOffset];
     
     CRToastViewController *rootViewController = (CRToastViewController*)_notificationWindow.rootViewController;
     [rootViewController statusBarStyle:notification.statusBarStyle];

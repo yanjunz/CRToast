@@ -198,6 +198,7 @@ CRToastAccessoryViewAlignment CRToastViewAlignmentForSegmentedControl(UISegmente
                                       kCRToastAnimationOutDirectionKey          : @(self.segToDirection.selectedSegmentIndex)} mutableCopy];
     
     options[kCRToastNotificationTypeKey] = @(CRToastTypeConfirm);
+    options[kCRToastTopOffsetKey] = @(64.0);
 //    options[kCRToastNotificationPreferredHeightKey] = @(300);
     if (self.showImageSwitch.on) {
         options[kCRToastImageKey] = [UIImage imageNamed:@"alert_icon.png"];

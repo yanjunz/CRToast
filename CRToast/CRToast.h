@@ -354,6 +354,8 @@ extern NSString *const kCRToastIdentifierKey;
  */
 extern NSString *const kCRToastCaptureDefaultWindowKey;
 
+extern NSString *const kCRToastTopOffsetKey;
+
 #pragma mark - CRToast Interface
 @interface CRToast : NSObject <UIGestureRecognizerDelegate>
 
@@ -442,5 +444,6 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 - (void)swipeGestureRecognizerSwiped:(CRToastSwipeGestureRecognizer*)swipeGestureRecognizer;
 - (void)tapGestureRecognizerTapped:(CRToastTapGestureRecognizer*)tapGestureRecognizer;
 - (void)initiateAnimator:(UIView *)view;
+- (CGFloat)topOffset;
 
 @end
