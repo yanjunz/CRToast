@@ -219,10 +219,12 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
                                               height+offset+statusBarYOffset,
                                               CGRectGetWidth(contentFrame)-x-kCRStatusBarViewNoImageRightContentInset,
                                               subtitleHeight);
-        CGFloat top = CGRectGetMaxY(self.subtitleLabel.frame) + 10;
-        CGFloat width = (CGRectGetWidth(contentFrame) - x - 40) / 2;
-        self.noButton.frame = CGRectMake(x, top, width, 30);
-        self.yesButton.frame = CGRectMake(x + width + 20, top, width, 30);
+        if (self.toast.notificationType == CRToastTypeConfirm) {
+            CGFloat top = CGRectGetMaxY(self.subtitleLabel.frame) + 10;
+            CGFloat width = (CGRectGetWidth(contentFrame) - x - 40) / 2;
+            self.noButton.frame = CGRectMake(x, top, width, 30);
+            self.yesButton.frame = CGRectMake(x + width + 20, top, width, 30);
+        }
     }
 
 }
