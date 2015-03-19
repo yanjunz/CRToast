@@ -74,7 +74,8 @@ extern NSString *NSStringFromCRToastInteractionType(CRToastInteractionType inter
 typedef NS_ENUM(NSInteger, CRToastType){
     CRToastTypeStatusBar,
     CRToastTypeNavigationBar,
-    CRToastTypeCustom
+    CRToastTypeConfirm,
+    CRToastTypeCustom,
 };
 
 /**
@@ -362,7 +363,7 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 //Top Level Properties
 
 @property (nonatomic, strong) NSDictionary *options;
-@property (nonatomic, copy) void(^completion)(void);
+@property (nonatomic, copy) void(^completion)(BOOL success);
 @property (nonatomic, copy) void(^appearance)(void);
 
 //Interactions
@@ -435,6 +436,8 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 @property (nonatomic, readonly) CGPoint inCollisionPoint2;
 @property (nonatomic, readonly) CGPoint outCollisionPoint1;
 @property (nonatomic, readonly) CGPoint outCollisionPoint2;
+
+@property (nonatomic) BOOL confirmation;
 
 - (void)swipeGestureRecognizerSwiped:(CRToastSwipeGestureRecognizer*)swipeGestureRecognizer;
 - (void)tapGestureRecognizerTapped:(CRToastTapGestureRecognizer*)tapGestureRecognizer;

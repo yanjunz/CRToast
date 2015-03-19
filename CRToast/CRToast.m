@@ -357,7 +357,7 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
     }
 }
 
-+ (instancetype)notificationWithOptions:(NSDictionary*)options appearanceBlock:(void (^)(void))appearance completionBlock:(void (^)(void))completion {
++ (instancetype)notificationWithOptions:(NSDictionary*)options appearanceBlock:(void (^)(void))appearance completionBlock:(void (^)(BOOL))completion {
     CRToast *notification = [[self alloc] init];
     notification.options = options;
     notification.completion = completion;
@@ -904,6 +904,12 @@ static CGFloat kCRCollisionTweak = 0.5;
 
 - (void)initiateAnimator:(UIView*)view {
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:view];
+}
+
+- (void)setConfirmation:(BOOL)confirmation
+{
+    _confirmation = confirmation;
+    [CRToastManager dismissNotification:YES];
 }
 
 @end

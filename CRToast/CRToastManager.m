@@ -16,7 +16,7 @@
 
 @interface CRToast (CRToastManager)
 + (void)setDefaultOptions:(NSDictionary*)defaultOptions;
-+ (instancetype)notificationWithOptions:(NSDictionary*)options appearanceBlock:(void (^)(void))appearance completionBlock:(void (^)(void))completion;
++ (instancetype)notificationWithOptions:(NSDictionary*)options appearanceBlock:(void (^)(void))appearance completionBlock:(void (^)(BOOL))completion;
 @end
 
 @interface CRToastManager () <UICollisionBehaviorDelegate>
@@ -40,20 +40,20 @@ typedef void (^CRToastAnimationStepBlock)(void);
     [CRToast setDefaultOptions:defaultOptions];
 }
 
-+ (void)showNotificationWithOptions:(NSDictionary*)options completionBlock:(void (^)(void))completion {
++ (void)showNotificationWithOptions:(NSDictionary*)options completionBlock:(void (^)(BOOL))completion {
     [[CRToastManager manager] addNotification:[CRToast notificationWithOptions:options
                                                                appearanceBlock:nil
                                                                completionBlock:completion]];
 }
 
-+ (void)showNotificationWithMessage:(NSString*)message completionBlock:(void (^)(void))completion {
++ (void)showNotificationWithMessage:(NSString*)message completionBlock:(void (^)(BOOL))completion {
     [self showNotificationWithOptions:@{kCRToastTextKey : message}
                       completionBlock:completion];
 }
 
 + (void)showNotificationWithOptions:(NSDictionary*)options
                      apperanceBlock:(void (^)(void))appearance
-                    completionBlock:(void (^)(void))completion
+                    completionBlock:(void (^)(BOOL))completion
 {
     [[CRToastManager manager] addNotification:[CRToast notificationWithOptions:options
                                                                appearanceBlock:appearance
@@ -136,7 +136,7 @@ CRToastAnimationCompletionBlock CRToastOutwardAnimationsCompletionBlock(CRToastM
         }
         weakSelf.notificationWindow.rootViewController.view.gestureRecognizers = nil;
         weakSelf.notification.state = CRToastStateCompleted;
-        if (weakSelf.notification.completion) weakSelf.notification.completion();
+        if (weakSelf.notification.completion) weakSelf.notification.completion(weakSelf.notification.confirmation);
         [weakSelf.notifications removeObject:weakSelf.notification];
         [weakSelf.notificationView removeFromSuperview];
         [weakSelf.statusBarView removeFromSuperview];
@@ -296,7 +296,7 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
     for (UIView *subview in _notificationWindow.rootViewController.view.subviews) {
         subview.userInteractionEnabled = NO;
     }
-    
+    notificationView.userInteractionEnabled = YES;
     _notificationWindow.rootViewController.view.userInteractionEnabled = YES;
     _notificationWindow.rootViewController.view.gestureRecognizers = notification.gestureRecognizers;
     

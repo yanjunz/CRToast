@@ -115,6 +115,8 @@ static CGFloat CRGetNotificationViewHeightForOrientation(CRToastType type, CGFlo
             return CRGetStatusBarHeightForOrientation(orientation);
         case CRToastTypeNavigationBar:
             return CRGetStatusBarHeightForOrientation(orientation) + CRGetNavigationBarHeightForOrientation(orientation);
+        case CRToastTypeConfirm:
+            return CRGetStatusBarHeightForOrientation(orientation) + CRGetNavigationBarHeightForOrientation(orientation) + 50;
         case CRToastTypeCustom:
             return preferredNotificationHeight;
     }

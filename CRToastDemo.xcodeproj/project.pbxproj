@@ -697,7 +697,7 @@
 				GCC_PREFIX_HEADER = "CRToastDemo/CRToastDemo-Prefix.pch";
 				INFOPLIST_FILE = "CRToastDemo/CRToastDemo-Info.plist";
 				PRODUCT_NAME = CRToastDemo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d7bd7914-acd9-462f-b483-489f8f234b0b";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -713,7 +713,7 @@
 				GCC_PREFIX_HEADER = "CRToastDemo/CRToastDemo-Prefix.pch";
 				INFOPLIST_FILE = "CRToastDemo/CRToastDemo-Info.plist";
 				PRODUCT_NAME = CRToastDemo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d7bd7914-acd9-462f-b483-489f8f234b0b";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

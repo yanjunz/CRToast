@@ -130,8 +130,8 @@
                                  apperanceBlock:^(void) {
                                      NSLog(@"Appeared");
                                  }
-                                completionBlock:^(void) {
-                                    NSLog(@"Completed");
+                                completionBlock:^(BOOL success) {
+                                    NSLog(@"Completed %d", success);
                                 }];
 }
 - (IBAction)btnPrintIdentifiersPressed:(UIButton *)sender {
@@ -196,6 +196,9 @@ CRToastAccessoryViewAlignment CRToastViewAlignmentForSegmentedControl(UISegmente
                                       kCRToastAnimationOutTypeKey               : @(CRToastAnimationTypeFromSegmentedControl(_outAnimationTypeSegmentedControl)),
                                       kCRToastAnimationInDirectionKey           : @(self.segFromDirection.selectedSegmentIndex),
                                       kCRToastAnimationOutDirectionKey          : @(self.segToDirection.selectedSegmentIndex)} mutableCopy];
+    
+    options[kCRToastNotificationTypeKey] = @(CRToastTypeConfirm);
+//    options[kCRToastNotificationPreferredHeightKey] = @(300);
     if (self.showImageSwitch.on) {
         options[kCRToastImageKey] = [UIImage imageNamed:@"alert_icon.png"];
         options[kCRToastImageAlignmentKey] = @(CRToastViewAlignmentForSegmentedControl(self.imageAlignmentSegmentedControl));

@@ -115,6 +115,28 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         [self addSubview:subtitleLabel];
         self.subtitleLabel = subtitleLabel;
         
+        UIButton *noButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [noButton addTarget:self action:@selector(onConfirm:) forControlEvents:UIControlEventTouchUpInside];
+        [noButton setTitle:@"No" forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        noButton.backgroundColor = [UIColor blueColor];
+        noButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        noButton.layer.borderWidth = 1;
+        noButton.layer.cornerRadius = 3;
+        [self addSubview:noButton];
+        self.noButton = noButton;
+        
+        UIButton *yesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [yesButton addTarget:self action:@selector(onConfirm:) forControlEvents:UIControlEventTouchUpInside];
+        [yesButton setTitle:@"Yes" forState:UIControlStateNormal];
+        [yesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        yesButton.backgroundColor = [UIColor redColor];
+        yesButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        yesButton.layer.borderWidth = 1;
+        yesButton.layer.cornerRadius = 3;
+        [self addSubview:yesButton];
+        self.yesButton = yesButton;
+        
         self.isAccessibilityElement = YES;
     }
     return self;
@@ -126,7 +148,11 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
     CGSize imageSize = self.imageView.image.size;
     
     CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight()+CRStatusBarViewUnderStatusBarYOffsetAdjustment) : 0;
+    
     contentFrame.size.height = CGRectGetHeight(contentFrame) - statusBarYOffset;
+    if (self.toast.notificationType == CRToastTypeConfirm) {
+        contentFrame.size.height -= 50;
+    }
     
     self.backgroundView.frame = self.bounds;
     
@@ -193,8 +219,24 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
                                               height+offset+statusBarYOffset,
                                               CGRectGetWidth(contentFrame)-x-kCRStatusBarViewNoImageRightContentInset,
                                               subtitleHeight);
+        CGFloat top = CGRectGetMaxY(self.subtitleLabel.frame) + 10;
+        CGFloat width = (CGRectGetWidth(contentFrame) - x - 40) / 2;
+        self.noButton.frame = CGRectMake(x, top, width, 30);
+        self.yesButton.frame = CGRectMake(x + width + 20, top, width, 30);
+    }
+
+}
+
+- (IBAction)onConfirm:(id)sender
+{
+    if (sender == self.noButton) {
+        self.toast.confirmation = NO;
+    }
+    else {
+        self.toast.confirmation = YES;
     }
 }
+
 
 #pragma mark - Overrides
 

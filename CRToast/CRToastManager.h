@@ -32,7 +32,7 @@
  synchronizing sound / vibration.
  */
 
-+ (void)showNotificationWithOptions:(NSDictionary*)options apperanceBlock:(void (^)(void))appearance completionBlock:(void (^)(void))completion;
++ (void)showNotificationWithOptions:(NSDictionary*)options apperanceBlock:(void (^)(void))appearance completionBlock:(void (^)(BOOL))completion;
 
 /**
  Queues a notification to be shown with a collection of options.
@@ -41,7 +41,7 @@
  @param completion A completion block to be fired at the completion of the dismisall of the notification
  */
 
-+ (void)showNotificationWithOptions:(NSDictionary*)options completionBlock:(void (^)(void))completion;
++ (void)showNotificationWithOptions:(NSDictionary*)options completionBlock:(void (^)(BOOL))completion;
 
 /**
  Queues a notification to be shown with a given message
@@ -50,7 +50,7 @@
  @param completion A completion block to be fired at the completion of the dismisall of the notification
  */
 
-+ (void)showNotificationWithMessage:(NSString*)message completionBlock:(void (^)(void))completion;
++ (void)showNotificationWithMessage:(NSString*)message completionBlock:(void (^)(BOOL))completion;
 
 /**
  Immidiately begins the (un)animated dismisal of a notification
